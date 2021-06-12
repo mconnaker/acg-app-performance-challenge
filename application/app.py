@@ -5,7 +5,7 @@ from flask import Flask, request, render_template, g, abort
 import time
 import redis
 import json
-rcache = redis.Redis(host='acgecc-redis.kihi2y.0001.use1.cache.amazonaws.com', port=6379, db=0, password=None)
+rcache = redis.Redis(host='', port=6379, db=0, password=None)
 TTL=10
 
 def config(filename='config/database.ini', section='postgresql'):
@@ -95,13 +95,3 @@ def index():
 
 if __name__ == "__main__":        # on running python app.py
     app.run()                     # run the flask app
-
-def fetch(sql):
-
-  result = cache.get(sql)
-  if result:
-    return deserialize(result)
-  else:
-    result = db.query(sql)
-    cache.setex(sql, ttl, serialize(result))
-    return result
