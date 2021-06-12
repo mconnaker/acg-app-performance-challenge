@@ -2,16 +2,16 @@ resource "aws_instance" "acgecc-devec2" {
     ami = "${lookup(var.AMI, var.AWS_REGION)}"
     instance_type = "t2.micro"
 
-    # VPC
+// VPC
     subnet_id = "${aws_subnet.pubsubnet.id}"
 
-    # Security Group
+// SECURITY GROUP
     vpc_security_group_ids = ["${aws_security_group.default.id}"]
 
-    # the Public SSH key
+// KEY PAIR
     key_name = "${aws_key_pair.kpacgecc.id}"
 
-    # nginx installation
+// USER DATA
     provisioner "file" {
         source = "userdata.sh"
         destination = "/tmp/userdata.sh"
